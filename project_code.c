@@ -83,7 +83,7 @@ int main() {
             comando = in[com];
             undo_totali = dis - actual;
             if (undo_totali != 0) {
-                McFly(undo_totali, testo, storia); //ov_undos dovrebbe essere pos per undo e neg per redo, controllare
+                McFly(undo_totali, testo, storia);
             }
             switch (comando) {
                 case 'c':
@@ -199,7 +199,7 @@ void allunga_storico(stor **storia, char com, int ind1, int ind2)
     storia[op_totale]->p_elem = NULL;
 }
 
-void change(int ind1,int ind2, elem **tes, stor **storia) //non so gesire 0,0c
+void change(int ind1,int ind2, elem **tes, stor **storia) 
 {
     elem *p, *precedente = NULL;
     char buffer[1025], *x;
@@ -240,9 +240,9 @@ void delete(int ind1, int ind2, stor **storia, int molt, elem **tes) {
     if(ind2 > righe_scritte)
         ind2 = righe_scritte;
     if(ind1 > righe_scritte)
-        ind1 = righe_scritte + 1; //così canc fa zero e non cambia nulla al numero di righe scritte dell'operazione
+        ind1 = righe_scritte + 1;
     canc = ind2-ind1+1;
-    if(ind2 != righe_scritte)//vuok dire che sto cancellando in mezzo
+    if(ind2 != righe_scritte)
     {
         memmove(tes + ind1 - 1, tes + ind2, (righe_scritte - ind2) * sizeof(elem *));
         for (i = righe_scritte - canc ; i < righe_scritte; i++)//si potrebbe togliere
@@ -268,7 +268,7 @@ void print(int ind1, int ind2, elem **tes, stor **storia)
         i = ind1 - 1;
     while (i < ind2 && i < n)
     {
-        fputs(tes[i]->riga, stdout); //THIS IS THE PROBLEM, sta provando a scrivere a una riga che è null
+        fputs(tes[i]->riga, stdout); 
         i++;
     }
     x = ind2 - ind1 - i + 1;
@@ -300,7 +300,7 @@ void McFly(int n, elem **tes, stor **storia)
            while(j < x && j < storia[i]->righe_scritte)
            {
                if(tes[j] == NULL){
-                   if(storia[i]->snapshot[j] != NULL) //teoricamente inutile
+                   if(storia[i]->snapshot[j] != NULL)
                    {
                        tes[j] = storia[i]->snapshot[j];
                        sistemate++;
